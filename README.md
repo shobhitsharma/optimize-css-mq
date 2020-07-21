@@ -1,4 +1,4 @@
-# optimize-css-mq  [![npm version](https://badge.fury.io/js/optimize-css-mq.svg)](https://badge.fury.io/js/optimize-css-mq)
+# optimize-css-mq [![npm version](https://badge.fury.io/js/optimize-css-mq.svg)](https://badge.fury.io/js/optimize-css-mq)
 
 Optimize CSS media queries by combining them together and injecting at end of base styles.
 
@@ -70,7 +70,7 @@ const fs = require("fs");
 const postcss = require("postcss");
 
 postcss([
-  require("autoprefixer-core")(),
+  ...
   require("optimize-css-mq")()
 ])
   .process(fs.readFileSync("from.css", "utf8"))
@@ -83,10 +83,10 @@ postcss([
 #!/usr/bin/env node
 
 const fs = require("fs");
-const mqpacker = require("optimize-css-mq");
+const optmizemq = require("optimize-css-mq");
 
 console.log(
-  mqpacker.pack(fs.readFileSync("from.css", "utf8"), {
+  optmizemq.pack(fs.readFileSync("from.css", "utf8"), {
     from: "from.css",
     map: {
       inline: false,
@@ -96,13 +96,24 @@ console.log(
 );
 ```
 
+### Webpack Plugin
+
+```js
+import OptimizeCssMqPlugin from "optimize-css-mq/webpack";
+
+new OptimizeCssMqPlugin({
+  input: resolver("../path/to/file.css"),
+  output: resolver("../path/to/file-optimized.css"),
+});
+```
+
 ### CLI
 
 This package also installs a command line interface.
 
 ```bash
-$ node ./node_modules/.bin/mqpacker --help
-Usage: mqpacker [options] INPUT [OUTPUT]
+$ node ./node_modules/.bin/optmizemq --help
+Usage: optmizemq [options] INPUT [OUTPUT]
 
 Description:
   Pack same CSS media query rules into one using PostCSS
@@ -116,8 +127,8 @@ Options:
 Use a single dash for INPUT to read CSS from standard input.
 
 Examples:
-  $ mqpacker fragmented.css
-  $ mqpacker fragmented.css > packed.css
+  $ optmizemq fragmented.css
+  $ optmizemq fragmented.css > packed.css
 ```
 
 > `--sort` option does not currently support a custom function.
@@ -126,13 +137,13 @@ Examples:
 
 ### sort
 
-By default, CSS MQPacker pack and order media queries as they are defined ([the
+By default, CSS optmizemq pack and order media queries as they are defined ([the
 “first win” algorithm][1]). If you want to sort media queries automatically,
 pass `sort: true` to this module.
 
 ```js
 postcss([
-  mqpacker({
+  optmizemq({
     sort: true,
   }),
 ]).process(css);
@@ -144,7 +155,7 @@ your own sorting function and pass it to this module like this:
 
 ```js
 postcss([
-  mqpacker({
+  optmizemq({
     sort: function (a, b) {
       return a.localeCompare(b);
     },
@@ -172,9 +183,9 @@ You can specify both at the same time.
 
 ```js
 const fs = require("fs");
-const mqpacker = require("optimize-css-mq");
+const optmizemq = require("optimize-css-mq");
 
-const result = mqpacker.pack(fs.readFileSync("from.css", "utf8"), {
+const result = optmizemq.pack(fs.readFileSync("from.css", "utf8"), {
   from: "from.css",
   map: {
     inline: false,
