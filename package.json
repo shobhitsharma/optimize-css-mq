@@ -1,11 +1,19 @@
 {
   "name": "optimize-css-mq",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Optimize CSS media queries ",
   "homepage": "https://github.com/shobhitsharma/optimize-css-mq",
   "bugs": {
     "url": "https://github.com/shobhitsharma/optimize-css-mq/issues"
   },
+  "keywords": [
+    "optimize-css-mq",
+    "optimize-media-query",
+    "postcss-media-query",
+    "format-css-mq",
+    "media-query",
+    "webpack-plugin"
+  ],
   "license": "MIT",
   "author": "Shobhit Sharma",
   "files": [
