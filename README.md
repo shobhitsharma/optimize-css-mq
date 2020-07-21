@@ -1,4 +1,4 @@
-# optimize-css-mq
+# optimize-css-mq  [![npm version](https://badge.fury.io/js/optimize-css-mq.svg)](https://badge.fury.io/js/optimize-css-mq)
 
 Optimize CSS media queries by combining them together and injecting at end of base styles.
 
