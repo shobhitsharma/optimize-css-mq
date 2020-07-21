@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const minimist = require("minimist");
-const mqpacker = require("../index");
+const optmizemq = require("../index");
 const pkg = require("../package.json");
 
 const argv = minimist(process.argv.slice(2), {
@@ -41,7 +41,7 @@ Examples:
 };
 
 const pack = (s, o) => {
-  mqpacker
+  optmizemq
     .pack(s, o)
     .then((result) => {
       if (!o.to) {
