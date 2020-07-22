@@ -32,16 +32,39 @@ class OptimizeCssMqPlugin {
    * @param {Compiler} compiler
    */
   apply(compiler) {
-    compiler.hooks.emit.tapAsync(PLUGIN_NAME, (compilation, callback) => {
+    compiler.hooks.afterEmit.tapPromise(PLUGIN_NAME, () => {
       const contents = fs.readFileSync(this.options.input, "utf8");
-      const output = optmizemq.pack(contents, {
-        from: this.options.input,
-        map: {
-          inline: false,
-        },
-        to: this.options.output,
-      }).css;
-      callback(output);
+
+      return optmizemq
+        .pack(contents, {
+          from: this.options.input,
+          map: {
+            inline: false,
+          },
+          to: this.options.output,
+        })
+        .then((result) => {
+          if (!this.options.output) {
+            process.stdout.write(result.css);
+            return;
+          }
+
+          fs.writeFileSync(this.options.output, result.css);
+
+          if (result.map) {
+            fs.writeFileSync(`${this.options.output}.map`, result.map);
+          }
+        })
+        .catch((error) => {
+          if (error.name !== "CssSyntaxError") {
+            throw error;
+          }
+
+          process.exitCode = 1;
+          console.error(
+            `${error.file}:${error.line}:${error.column}: ${error.reason}`
+          );
+        });
     });
   }
 }
