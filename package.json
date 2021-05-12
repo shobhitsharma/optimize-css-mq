@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "minimist": "1.2.5",
-    "postcss": "7.0.32"
+    "postcss": "8.2.10"
   },
   "devDependencies": {
     "eslint": "7.5.0",
