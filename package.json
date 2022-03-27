@@ -33,7 +33,7 @@
     "test": "eslint index.js test/index.js && tape \"test/**/*.js\""
   },
   "dependencies": {
-    "minimist": "1.2.5",
+    "minimist": "1.2.6",
     "postcss": "7.0.32"
   },
   "devDependencies": {
